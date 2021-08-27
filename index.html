@@ -3,10 +3,79 @@
         <title>Labs announcement trainer</title>
     </head>
     <body>
-        <h1></h1>
-        <audio id="announcementAudio" controls>
-        </audio>
+        <h1>Labs announcement trainer</h1>
+        <div id=score class="score">
+            <div id="scoreScore"></div>/
+            <div id="scoreTotal"></div>
+        </div>
+        <div id="testDiv">
+            <div id="answersDiv">
+                <input >
+            </div>
+            <button id="nextBtn">next</button>
+        </div>
+        <audio id="announcementAudio" controls></audio>
         <script type="text/javascript">
+        
+        class cookieManager{
+            constructor() {
+               this.cookieList = new Array();
+
+            }
+        }
+        class cookieObj{
+
+            constructor(name,value,path,domain,maxAge,expires,secure,samesite){
+               this.name = name;
+               this.value = value;
+               this.path = path;
+               this.domain = domain;
+               this.maxAge = maxAge;
+               this.expires = expires;
+               this.secure = secure;
+               this.samesite = samesite;
+            }
+            save(){
+                document.cookie = getCookieStr();
+            }
+            destroy(){
+                document.cookie = getCookieStrValue() + this.expires + "=" + "0;";
+            }
+            getCookieStrValue(){
+                return this.name + "=" + this.value + ";";
+            }
+            getCookieStrPath(){
+                if(this.path !== ""){
+                    return "path" + "=" + this.path + ";";
+                }
+                return "";
+            }
+            getCookieStrDomain(){
+                if(this.domain !== ""){
+                    return "domain" + "=" + this.domain + ";";
+                }
+                return "";
+            }
+            getCookieStrMaxAge(){
+                if(this.maxAge !== ""){
+                    return "max-age" + "=" + this.maxAge + ";";
+                }
+                return "";
+            }
+            getCookieStrexpires(){
+                if(this.expires !== ""){
+                    return "expires" + "=" + this.expires + ";";
+                }
+                return "";
+            }
+            getCookieStr(){
+                return encodeURIComponent(getCookieStrValue() + getCookieStrPath() + );
+            }
+            getCookieStr
+        }
+        browser4
+        //document.cookie = null;
+        console.log("cookiesAllowed:" + cookiesAllowed());
         let announcement = [
         {
             sectorLetter:"G",
@@ -48,11 +117,121 @@
             customText:"",
             audio:"Announcements/Y11ParkingAnnouncement.wav"
         }];
-        console.log(announcement);
 
-        let func = () => {
+        let roundFunctionsNormal = {
+            drawNewAnswers: () => {
+                let answerInput;
+                let answerItem;
+                let answerDiv = document.getElementById("answersDiv");
+                for(let i = 0; i < announcement.length; i++){
+                    answerInput = document.createElement("INPUT");
+                    answerItem = document.createElement("DIV");
+                    answerInput.setAttribute("value",announcement[i].sectorLetter);
+                    answerInput.setAttribute("name","announcementTest");
+                    answerItem.setAttribute("class","");
+                    answerItem.appendChild(answerInput);
+                    answerDiv.appendChild(answerItem);
+                }
+            },
+            drawNewAnnouncementAudio: () => {
 
+            }
         };
+
+        console.log(document.cookie);
+
+        let roundFunctionsHard = {};
+
+        let roundFunctions = roundFunctionsNormal;
+
+        function getRandomId(){
+            let returnValue = Math.floor((Math.random() * (announcement.length - 1)) + 0)
+            console.log(returnValue);
+            return returnValue;
+        }
+
+        function drawNewRound(item = null){
+            if(item !== null){
+                currentItem = item;
+                //roundFunctions.
+                //document.getElementById("announcementAudio").setAttribute("src",item.audio);
+                //roundFunctions.drawNewAnswers();
+            }
+        }
+
+        function setScoreScore(scoreScore = 0){
+            document.getElementById("scoreScore").appendChild(document.createTextNode(scoreScore));
+        }
+
+        function setScoreTotal(totalScore = 0){
+            document.getElementById("scoreTotal").appendChild(document.createTextNode(totalScore));
+        }
+
+        function loadScore(){
+            if(cookiesAllowed()){
+                setScoreTotal(loadScore("Total"));
+                setScoreScore(loadScore("Score"));
+            }
+            else{
+                setScoreTotal();
+                setScoreScore();
+            }
+        }
+
+        //https://www.tutorialspoint.com/javascript/javascript_cookies.htm
+        function cookiesAllowed(){
+            if(document.cookie !== ""){
+               if(true){
+                    return true;
+               }
+            }
+            return false;
+        }
+        function getCookie(name = ""){
+            if(name){
+
+            }
+        }
+        function loadScore(scoreType = "Score"){
+
+        }
+
+
+        function start(){
+            loadScore();
+            drawNewRound(announcement[getRandomId()]);
+        }
+
+        function setScore(result = false){
+            //setScoreTotal()
+            //setScoreScore()
+        }
+
+        function getResult(){
+            return true;
+        }
+
+        function newRound(){
+            let result = getResult();
+            setScore(result);
+            setResultBanner(result);
+            let announcementId;
+            do {
+                announcementId = getRandomId();
+            } while (currentItem.sectorLetter ==! announcement[announcementId].sectorLetter);
+            drawNewRound(announcement[announcementId]);
+
+        }
+        /*
+        document.cookie = "test0=jaaa" + getRandomId() + ";";
+        document.cookie = "test1=jaaa" + getRandomId() + ";";
+        document.cookie = "test2=jaaa" + getRandomId() + ";";
+        */
+        
+
+        let currentItem;
+        start();
+      
         </script>
     </body>
 </html>
