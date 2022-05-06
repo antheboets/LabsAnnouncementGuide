@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+@font-face {
+  font-family: 'bombard';
+  src: local('bombard'), url(./fonts/BOMBARD_.ttf) format('truetype');
+}
