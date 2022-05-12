@@ -1,8 +1,6 @@
 import React from "react";
 
-const LanguePicker = ({strings}) =>{
-
-
+const LanguePicker = ({strings,setLangues,className}) =>{
     const [open, setOPen] = React.useState(false);
 
     const onClick = () =>{
@@ -25,19 +23,24 @@ const LanguePicker = ({strings}) =>{
         return "";
     }
 
+    const setNewLangue = (langueCode) =>{
+        console.log(langueCode,strings.getLanguage());
+        if(langueCode !== strings.getLanguage()){
+            setLangues(langueCode);
+        }
+        setOPen(false);
+    }
 
-
-    return(<div onClick={onClick}>
+    return(<div className={className} onClick={onClick}>
         {getLangueShortName(strings.getLanguage())}
-        {open &&
+        {open && 
         <div className="languePickerDropDown">
-            <ul>
+            <ul className="languePickerDropDown">
                 {Object.keys(langData).map((langue)=>{
-                    return <li key={langData[langue].code}>{langData[langue].text}</li>
+                    return <li key={langData[langue].code} className="languePickerDropDown" onClick={() =>{setNewLangue(langData[langue].code)}}>{langData[langue].text}</li>
                 })}
             </ul>
-        </div>
-        }
+        </div>}
     </div>);
 }
 export default LanguePicker;
