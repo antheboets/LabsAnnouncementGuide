@@ -2,7 +2,7 @@ import React from "react";
 
 const HeaderButton =  ({text}) =>{
     return(
-        <div>{text}</div>
+        <div className="headerItem">{text}</div>
     );
 }
 
